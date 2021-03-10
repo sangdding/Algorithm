@@ -1,4 +1,5 @@
 /*
+
 BFS와 DFS
 
 문제
@@ -48,3 +49,67 @@ V부터 방문된 점을 순서대로 출력하면 된다.
 1000 999
 1000 999
 */
+#include <iostream>
+#include <vector>
+#include <queue>
+
+
+using namespace std;
+
+vector<vector<int>> graph;
+vector<int> dfsVisited;
+vector<int> bfsVisited;
+int countOfPoint;
+int startPoint;
+int lines;
+
+void dfs(int point) {
+    dfsVisited[point] = 1;
+    cout << point+1 << " ";
+    for (int i = 0; i < countOfPoint; i++) {
+        if (dfsVisited[i] == 1)
+            continue;
+        if (graph[point][i] == 1)
+            dfs(i);
+    }
+}
+
+void bfs(int point) {
+    queue <int> remain;
+    remain.push(point);
+    cout << point+1;
+    bfsVisited[point] = 1;
+    while (!remain.empty()) {
+        point = remain.front();
+        remain.pop();
+        for (int i = 0; i < countOfPoint; i++) {
+            if (bfsVisited[i] == 1)
+                continue;
+            if (graph[point][i] == 1) {
+                bfsVisited[i] = 1;
+                remain.push(i);
+                cout << " " << i+1;
+            }
+        }
+    }
+}
+
+int main() {
+    int start, end;
+
+    cin >> countOfPoint >> lines >> startPoint;
+
+    graph.assign(countOfPoint, vector<int>(countOfPoint, 0));
+    bfsVisited.assign(countOfPoint, 0);
+    dfsVisited.assign(countOfPoint, 0);
+    for (int i = 0; i < lines; i++) {
+        cin >> start >> end;
+        start--;
+        end--;
+        graph[start][end] = 1;
+        graph[end][start] = 1;
+    }
+    dfs(startPoint-1);
+    cout << endl;
+    bfs(startPoint-1);
+}
