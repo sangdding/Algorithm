@@ -1,6 +1,6 @@
 /*
 
-BFS와 DFS
+BFS와 DFS silver 2
 
 문제
 그래프를 DFS로 탐색한 결과와 BFS로 탐색한 결과를 출력하는 프로그램을 작성하시오. 
