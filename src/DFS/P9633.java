@@ -15,7 +15,7 @@ public class P9633 {
 
     public static void main(String[] args) throws IOException {
 
-        System.setIn(new FileInputStream("src/DFS/input.txt"));
+        System.setIn(new FileInputStream("src/input.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         N = Integer.parseInt(br.readLine());

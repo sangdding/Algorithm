@@ -11,7 +11,7 @@ public class P3425 {
 
     public static void main(String[] args) throws IOException {
 
-        System.setIn(new FileInputStream("src/Structure/input.txt"));
+        System.setIn(new FileInputStream("src/input.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         // 입력 받기
