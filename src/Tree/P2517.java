@@ -1,55 +1,67 @@
 package Tree;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.*;
 
 public class P2517 {
 
     static int N;
-    static int S;
-    static final long MAX = 10000;
     static int[] tree;
 
     public static void main(String[] args) throws IOException {
 
         System.setIn(new FileInputStream("src/input.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         N = Integer.parseInt(br.readLine());
-
-        S = 1;
-        while (S < MAX) {
-            S *= 2;
-        }
-
-        tree = new int[2 * S + 1];
-
+        List<Player> players = new ArrayList<>();
         for (int i = 0; i < N; i++) {
-            int ability = Integer.parseInt(br.readLine());
-            update(1, S, 1, ability, 1);
-            System.out.println(query(1, S, 1, ability + 1, S) + 1);
+            players.add(new Player(i, Integer.parseInt(br.readLine())));
+        }
+
+        players.sort(Comparator.comparingInt(a -> a.speed));
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            player.speed = i + 1;
+        }
+        players.sort(Comparator.comparingInt(a -> a.id));
+
+        StringBuilder sb = new StringBuilder();
+        tree = new int[N + 1];
+        for (int i = 1; i <= N; i++) {
+            int speed = players.get(i - 1).speed;
+            sb.append(i - sum(speed - 1)).append("\n");
+            update(speed);
+        }
+        System.out.print(sb);
+    }
+
+    static int sum(int idx) {
+        int result = 0;
+        while (idx > 0) {
+            result += tree[idx];
+            idx -= (idx & -idx);
+        }
+        return result;
+    }
+
+    static void update(int idx) {
+        while (idx <= N) {
+            tree[idx] += 1;
+            idx += (idx & -idx);
         }
     }
 
-    static int query(int left, int right, int node, int start, int end) {
-        if (left >= start && right <= end) {
-            return tree[node];
-        } else if (left >= start || right <= end) {
-            int mid = (left + right) / 2;
-            return query(left, mid, 2 * node, start, end) + query(mid * 2 + 1, right, 2 * node + 1, start, end);
-        } else {
-            return 0;
-        }
-    }
+    static class Player {
 
-    static void update(int left, int right, int node, int index, int diff) {
-        if (left == right) {
-            tree[node] += diff;
-        } else if (left <= index && right >= index) {
-            int mid = (left + right) / 2;
-            update(left, mid, 2 * node, index, diff);
-            update(mid + 1, right, 2 * node + 1, index, diff);
+        int id;
+        int speed;
+
+        Player(int id, int speed) {
+            this.id = id;
+            this.speed = speed;
         }
     }
 }
