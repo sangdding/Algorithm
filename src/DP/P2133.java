@@ -22,17 +22,14 @@ public class P2133 {
             cache[0] = 1;
             cache[1] = 1;
             cache[2] = 3;
-            System.out.println(dp(N));
-        }
-    }
 
-    static int dp(int pos) {
-        if (pos <= 2) {
-            return cache[pos];
+            for (int i = 4; i <= N; i += 2) {
+                cache[i] += cache[i - 2] * 3 + 2;
+                for (int j = i - 4; j >= 2; j -= 2) {
+                    cache[i] += cache[j] * 2;
+                }
+            }
+            System.out.println(cache[N]);
         }
-        if (cache[pos] != 0) {
-            return cache[pos];
-        }
-        return cache[pos] = dp(pos - 4) * 2 + dp(pos - 2) * 3 + 2;
     }
 }
