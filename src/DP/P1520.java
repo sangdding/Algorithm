@@ -25,25 +25,25 @@ public class P1520 {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < N; j++) {
                 map[i][j] = Integer.parseInt(st.nextToken());
+                dp[i][j] = -1;
             }
         }
-        dp[0][0] = 1;
-        dfs(0, 0);
-        System.out.println(dp[M - 1][N - 1]);
+        System.out.println(dfs(0, 0));
     }
 
-    static void dfs(int y, int x) {
+    static int dfs(int y, int x) {
+        if (x == N - 1 && y == M - 1) return 1;
+        if (dp[y][x] != -1) return dp[y][x];
+        dp[y][x] = 0;
         for (int i = 0; i < 4; i++) {
             int nextY = y + pos[i][0];
             int nextX = x + pos[i][1];
             if (nextY >= 0 && nextY < M && nextX >= 0 && nextX < N) {
                 if (map[nextY][nextX] < map[y][x]) {
-                    if (dp[nextY][nextX] == 0) {
-                        dp[nextY][nextX]++;
-                        dfs(nextY, nextX);
-                    }
+                    dp[y][x] += dfs(nextY, nextX);
                 }
             }
         }
+        return dp[y][x];
     }
 }
