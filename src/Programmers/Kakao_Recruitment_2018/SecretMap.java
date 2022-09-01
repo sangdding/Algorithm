@@ -10,13 +10,20 @@ public class SecretMap {
     }
 
     public static String[] solution(int n, int[] arr1, int[] arr2) {
-        String[] answer = {};
-        StringBuilder sb = new StringBuilder();
+        String[] answer = new String[n];
         for (int i = 0; i < n; i++) {
+            StringBuilder sb = new StringBuilder();
             int result = arr1[i] | arr2[i];
-            for (int j = 0; j < n; j++) {
-                int flag = (int) Math.pow(2, j) & result;
+            String temp = Integer.toBinaryString(result);
+            sb.append(" ".repeat(Math.max(0, n - temp.length())));
+            for (int j = 0; j < temp.length(); j++) {
+                if (temp.charAt(j) == '1') {
+                    sb.append("#");
+                } else {
+                    sb.append(" ");
+                }
             }
+            answer[i] = sb.toString();
         }
         return answer;
     }
