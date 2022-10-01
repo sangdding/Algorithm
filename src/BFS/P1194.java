@@ -48,30 +48,28 @@ public class P1194 {
             for (int i = 0; i < 4; i++) {
                 int nx = curr.x + dx[i];
                 int ny = curr.y + dy[i];
-                if (nx >= 0 && ny >= 0 && nx < M && ny < N) {
-                    if (!visited[curr.key][ny][nx]) {
-                        if (map[ny].charAt(nx) == '.' || map[ny].charAt(nx) == '0' || map[ny].charAt(nx) == '1') {
-                            queue.add(new Node(ny, nx, curr.count + 1, curr.key));
-                            visited[curr.key][ny][nx] = true;
-                        } else if (map[ny].charAt(nx) >= 'a' && map[ny].charAt(nx) <= 'f') {
-                            int code = (int) map[ny].charAt(nx) - 97;
-                            code = (int) Math.pow(2, code);
-                            if ((curr.key & code) == 0) {
-                                code += curr.key;
-                            } else {
-                                code = curr.key;
-                            }
-                            visited[code][ny][nx] = true;
-                            queue.add(new Node(ny, nx, curr.count + 1, code));
-                        } else if (map[ny].charAt(nx) >= 'A' && map[ny].charAt(nx) <= 'F') {
-                            int code = (int) map[ny].charAt(nx) - 65;
-                            code = (int) Math.pow(2, code);
-                            if ((curr.key & code) == 0) {
-                                continue;
-                            }
-                            visited[curr.key][ny][nx] = true;
-                            queue.add(new Node(ny, nx, curr.count + 1, curr.key));
+                if (nx >= 0 && ny >= 0 && nx < M && ny < N && !visited[curr.key][ny][nx]) {
+                    if (map[ny].charAt(nx) == '.' || map[ny].charAt(nx) == '0' || map[ny].charAt(nx) == '1') {
+                        queue.add(new Node(ny, nx, curr.count + 1, curr.key));
+                        visited[curr.key][ny][nx] = true;
+                    } else if (map[ny].charAt(nx) >= 'a' && map[ny].charAt(nx) <= 'f') {
+                        int code = (int) map[ny].charAt(nx) - 97;
+                        code = (int) Math.pow(2, code);
+                        if ((curr.key & code) == 0) {
+                            code += curr.key;
+                        } else {
+                            code = curr.key;
                         }
+                        visited[code][ny][nx] = true;
+                        queue.add(new Node(ny, nx, curr.count + 1, code));
+                    } else if (map[ny].charAt(nx) >= 'A' && map[ny].charAt(nx) <= 'F') {
+                        int code = (int) map[ny].charAt(nx) - 65;
+                        code = (int) Math.pow(2, code);
+                        if ((curr.key & code) == 0) {
+                            continue;
+                        }
+                        visited[curr.key][ny][nx] = true;
+                        queue.add(new Node(ny, nx, curr.count + 1, curr.key));
                     }
                 }
             }

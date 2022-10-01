@@ -13,10 +13,10 @@ public class P1000 {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int A = Integer.parseInt(st.nextToken());
         int B = Integer.parseInt(st.nextToken());
-        System.out.println(A + B);
-        System.out.println(A - B);
-        System.out.println(A * B);
-        System.out.println(A / B);
-        System.out.println(A % B);
+        int C = Integer.parseInt(st.nextToken());
+        System.out.println((A + B) % C);
+        System.out.println(((A%C) + (B%C))%C);
+        System.out.println((A*B)%C);
+        System.out.println(((A%C) * (B%C)) % C);
     }
 }
