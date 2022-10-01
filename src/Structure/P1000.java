@@ -3,20 +3,17 @@ package Structure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
 public class P1000 {
 
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int A = Integer.parseInt(st.nextToken());
-        int B = Integer.parseInt(st.nextToken());
-        System.out.println(A + B);
-        System.out.println(A - B);
-        System.out.println(A * B);
-        System.out.println(A / B);
-        System.out.println(A % B);
+        int N = Integer.parseInt(br.readLine());
+        for (int i = 1; i <= N; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
     }
 }
