@@ -10,4 +10,5 @@
 Algorithm.iml
 out
 input.txt
-src/Test.java
+.vscode
+C++/exe
